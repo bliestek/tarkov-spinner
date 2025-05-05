@@ -9,7 +9,11 @@
 <body>
     <div class="container">
         <h1>Tarkov Map Spinner</h1>
-        <canvas id="wheel" width="400" height="400"></canvas>
+        <div id="result" class="result"></div>
+        <div class="wheel-container">
+            <canvas id="wheel" width="400" height="400"></canvas>
+            <div class="arrow">▲</div>
+        </div>
         <div class="controls">
             <textarea id="map-input" placeholder="Enter map names, one per line..."></textarea>
             <div class="buttons">
@@ -17,7 +21,6 @@
                 <button id="reset-button">🔄 Reset</button>
             </div>
         </div>
-        <div id="result"></div>
     </div>
     <script src="app.js"></script>
 </body>

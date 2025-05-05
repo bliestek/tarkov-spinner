@@ -1,4 +1,4 @@
-const maps = [
+let maps = [
     "Woods",
     "The Lab",
     "Ground Zero",
@@ -14,7 +14,9 @@ const maps = [
 ];
 
 const spinButton = document.getElementById("spin-button");
+const resetButton = document.getElementById("reset-button");
 const resultDisplay = document.getElementById("result");
+const mapInput = document.getElementById("map-input");
 const canvas = document.getElementById("wheel");
 const ctx = canvas.getContext("2d");
 
@@ -82,5 +84,37 @@ function spinWheel() {
     requestAnimationFrame(animateSpin);
 }
 
+function resetWheel() {
+    maps = [
+        "Woods",
+        "The Lab",
+        "Ground Zero",
+        "Streets of Tarkov",
+        "Factory",
+        "Customs",
+        "Reserve",
+        "Lighthouse",
+        "Interchange",
+        "The Labyrinth",
+        "Shoreline",
+        "Terminal"
+    ];
+    mapInput.value = maps.join("\n");
+    resultDisplay.textContent = "";
+    drawWheel();
+}
+
+mapInput.addEventListener("input", () => {
+    const inputMaps = mapInput.value.split("\n").filter((map) => map.trim() !== "");
+    if (inputMaps.length > 0) {
+        maps = inputMaps;
+        drawWheel();
+    }
+});
+
 spinButton.addEventListener("click", spinWheel);
+resetButton.addEventListener("click", resetWheel);
+
+// Initialize the wheel with default maps
+mapInput.value = maps.join("\n");
 drawWheel();

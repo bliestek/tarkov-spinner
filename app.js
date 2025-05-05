@@ -88,8 +88,10 @@ function spinWheel() {
 function getSelectedMapIndex(rotation) {
     const numMaps = maps.length;
     const anglePerSlice = 360 / numMaps;
-    const normalizedRotation = (360 - (rotation % 360)) % 360; // Normalize rotation to 0-360 degrees
-    return Math.floor(normalizedRotation / anglePerSlice);
+    const normalizedRotation = (rotation % 360 + 360) % 360; // Normalize rotation to 0-360 degrees
+    const arrowAngle = 0; // Arrow is at the top (0 degrees)
+    const adjustedRotation = (normalizedRotation + arrowAngle) % 360; // Adjust rotation to align with the arrow
+    return Math.floor(adjustedRotation / anglePerSlice);
 }
 
 function resetWheel() {

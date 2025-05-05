@@ -90,7 +90,7 @@ function getSelectedMapIndex(rotation) {
     const anglePerSlice = 360 / numMaps;
     const normalizedRotation = (rotation % 360 + 360) % 360; // Normalize rotation to 0-360 degrees
     const adjustedRotation = (normalizedRotation + anglePerSlice / 2) % 360; // Adjust rotation to align with the top
-    return Math.floor(adjustedRotation / anglePerSlice);
+    return Math.floor(normalizedRotation / anglePerSlice);
 }
 
 function resetWheel() {

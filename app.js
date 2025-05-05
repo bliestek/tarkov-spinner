@@ -19,6 +19,7 @@ const canvas = document.getElementById("wheel");
 const ctx = canvas.getContext("2d");
 
 let spinning = false;
+let currentRotation = 0;
 
 function drawWheel() {
     const numMaps = maps.length;
@@ -30,7 +31,19 @@ function drawWheel() {
         ctx.arc(canvas.width / 2, canvas.height / 2, canvas.width / 2, i * angle, (i + 1) * angle);
         ctx.fillStyle = `hsl(${(i / numMaps) * 360}, 100%, 50%)`;
         ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 2;
         ctx.stroke();
+
+        // Add map names
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate(i * angle + angle / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#000";
+        ctx.font = "14px Arial";
+        ctx.fillText(maps[i], canvas.width / 2 - 10, 5);
+        ctx.restore();
     }
 }
 
@@ -45,21 +58,22 @@ function spinWheel() {
     function animateSpin(time) {
         const elapsed = time - startTime;
         const progress = Math.min(elapsed / spinDuration, 1);
-        const currentAngle = spinAngle * progress;
+        const easeOut = 1 - Math.pow(1 - progress, 3); // Ease-out effect
+        const currentAngle = currentRotation + spinAngle * easeOut;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawWheel();
         ctx.save();
         ctx.translate(canvas.width / 2, canvas.height / 2);
         ctx.rotate((currentAngle * Math.PI) / 180);
         ctx.translate(-canvas.width / 2, -canvas.height / 2);
-        ctx.drawImage(canvas, 0, 0);
+        drawWheel();
         ctx.restore();
 
         if (progress < 1) {
             requestAnimationFrame(animateSpin);
         } else {
-            const selectedMapIndex = Math.floor((spinAngle % 360) / (360 / maps.length));
+            currentRotation = currentAngle % 360; // Save the final rotation
+            const selectedMapIndex = Math.floor((360 - currentRotation) / (360 / maps.length)) % maps.length;
             resultDisplay.textContent = `Selected Map: ${maps[selectedMapIndex]}`;
             spinning = false;
         }

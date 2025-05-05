@@ -1,0 +1,66 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#color-wheel {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 10px solid #333;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#color-wheel .slice {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background-color: transparent;
+    transform-origin: 100% 100%;
+}
+
+#color-wheel .slice:nth-child(1) { transform: rotate(0deg); background-color: #ff0000; }
+#color-wheel .slice:nth-child(2) { transform: rotate(30deg); background-color: #ff7f00; }
+#color-wheel .slice:nth-child(3) { transform: rotate(60deg); background-color: #ffff00; }
+#color-wheel .slice:nth-child(4) { transform: rotate(90deg); background-color: #7fff00; }
+#color-wheel .slice:nth-child(5) { transform: rotate(120deg); background-color: #00ff7f; }
+#color-wheel .slice:nth-child(6) { transform: rotate(150deg); background-color: #00ffff; }
+#color-wheel .slice:nth-child(7) { transform: rotate(180deg); background-color: #007fff; }
+#color-wheel .slice:nth-child(8) { transform: rotate(210deg); background-color: #0000ff; }
+#color-wheel .slice:nth-child(9) { transform: rotate(240deg); background-color: #7f00ff; }
+#color-wheel .slice:nth-child(10) { transform: rotate(270deg); background-color: #ff00ff; }
+#color-wheel .slice:nth-child(11) { transform: rotate(300deg); background-color: #ff007f; }
+#color-wheel .slice:nth-child(12) { transform: rotate(330deg); background-color: #ff0000; }
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+#selected-map {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}

@@ -56,12 +56,13 @@ function spinWheel() {
     const spinDuration = 3000; // 3 seconds
     const spinAngle = Math.random() * 360 + 720; // Random angle + 2 full spins
     const startTime = performance.now();
+    const initialRotation = currentRotation; // Save the current rotation
 
     function animateSpin(time) {
         const elapsed = time - startTime;
         const progress = Math.min(elapsed / spinDuration, 1);
         const easeOut = 1 - Math.pow(1 - progress, 3); // Ease-out effect
-        const currentAngle = currentRotation + spinAngle * easeOut;
+        const currentAngle = initialRotation + spinAngle * easeOut;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.save();
@@ -101,6 +102,7 @@ function resetWheel() {
     ];
     mapInput.value = maps.join("\n");
     resultDisplay.textContent = "";
+    currentRotation = 0; // Reset rotation
     drawWheel();
 }
 

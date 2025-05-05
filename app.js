@@ -76,13 +76,20 @@ function spinWheel() {
             requestAnimationFrame(animateSpin);
         } else {
             currentRotation = currentAngle % 360; // Save the final rotation
-            const selectedMapIndex = Math.floor((360 - currentRotation) / (360 / maps.length)) % maps.length;
+            const selectedMapIndex = getSelectedMapIndex(currentRotation);
             resultDisplay.textContent = `Selected Map: ${maps[selectedMapIndex]}`;
             spinning = false;
         }
     }
 
     requestAnimationFrame(animateSpin);
+}
+
+function getSelectedMapIndex(rotation) {
+    const numMaps = maps.length;
+    const anglePerSlice = 360 / numMaps;
+    const normalizedRotation = (360 - (rotation % 360)) % 360; // Normalize rotation to 0-360 degrees
+    return Math.floor(normalizedRotation / anglePerSlice);
 }
 
 function resetWheel() {
@@ -101,7 +108,7 @@ function resetWheel() {
         "Terminal"
     ];
     mapInput.value = maps.join("\n");
-    resultDisplay.textContent = "";
+    resultDisplay.textContent = "Selected Map: None";
     currentRotation = 0; // Reset rotation
     drawWheel();
 }
